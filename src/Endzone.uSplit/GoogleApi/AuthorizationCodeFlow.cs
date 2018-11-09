@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Configuration;
+using System.Linq;
 using Google.Apis.Analytics.v3;
 using Google.Apis.Auth.OAuth2;
 using Google.Apis.Auth.OAuth2.Flows;
@@ -11,6 +12,7 @@ using Google.Apis.Util;
 using Google.Apis.Util.Store;
 using System.Web.Hosting;
 using Endzone.uSplit.Models;
+using Endzone.uSplit.Utility;
 using Google.Apis.Auth.OAuth2.Requests;
 
 namespace Endzone.uSplit.GoogleApi
@@ -30,12 +32,15 @@ namespace Endzone.uSplit.GoogleApi
 
         private static Initializer CreateFlowInitializer(AccountConfig config)
         {
+            DictionaryUtils uDic = new DictionaryUtils();
+            var dictItems = uDic.GetDictionaryItemsSimple();
+
             return new Initializer
             {
                 ClientSecrets = new ClientSecrets
                 {
-                    ClientId = WebConfigurationManager.AppSettings[Constants.AppSettings.GoogleClientId],
-                    ClientSecret = WebConfigurationManager.AppSettings[Constants.AppSettings.GoogleClientSecret]
+                    ClientId = WebConfigurationManager.AppSettings[Constants.AppSettings.GoogleClientId] ?? dictItems.Where(x => x.Key == Constants.AppSettings.GoogleClientId).FirstOrDefault()?.Value,
+                    ClientSecret = WebConfigurationManager.AppSettings[Constants.AppSettings.GoogleClientSecret] ?? dictItems.Where(x => x.Key == Constants.AppSettings.GoogleClientSecret).FirstOrDefault()?.Value
                 },
                 Scopes = new[] {AnalyticsService.Scope.AnalyticsEdit},
                 DataStore = new FileDataStore(GetStoragePath(config), true),

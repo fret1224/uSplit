@@ -9,8 +9,8 @@
         navigationService.syncTree({ tree: "abtesting", path: path, forceReload: false, activate: true });
 
         $scope.tabs = [
-            { id: "configuration", label: "Configuration" },
-            { id: "instructions", label: "Instructions" }
+            { id: "configuration", label: "Configuration" }/*,
+            { id: "instructions", label: "Instructions" }*/
         ];
 
         $scope.reauthorize = function (profileId) {
@@ -29,7 +29,7 @@
                         profileId: data.profileId,
                         connected: data.isConnected,
                         hasAccess: data.hasAccess,
-                        message: data.error,
+                        message: data.error
                     });
                 }
             });

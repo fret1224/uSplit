@@ -22,14 +22,16 @@ namespace Endzone.uSplit.Backoffice
     /// Generates a private tree on the content section
     /// </summary>
     [PluginController(Constants.PluginName)]
-    [Tree(UmbracoConstants.Applications.Content, Constants.Trees.AbTesting, "A/B testing")]
+    //[Tree(UmbracoConstants.Applications.Content, Constants.Trees.AbTesting, "A/B testing")]
+    [Tree("abtesting", Constants.Trees.AbTesting, "A/B testing")]
     public class USplitContentTreeController : uSplitTreeController
     {
         protected override TreeNode CreateRootNode(FormDataCollection queryStrings)
         {
             var node = base.CreateRootNode(queryStrings);
 
-            node.RoutePath = $"content/{Constants.Trees.AbTesting}/dashboard/hello";
+            //node.RoutePath = $"content/{Constants.Trees.AbTesting}/dashboard/hello";
+            node.RoutePath = $"abtesting/{Constants.Trees.AbTesting}/dashboard/hello";
             node.Icon = Constants.Icons.Split;
             node.HasChildren = true;
 
@@ -105,7 +107,8 @@ namespace Endzone.uSplit.Backoffice
 
             const string icon = Constants.Icons.Account + " color-black";
 
-            var url = $"content/{Constants.Trees.AbTesting}/dashboard/{config.UniqueId}/";
+            //var url = $"content/{Constants.Trees.AbTesting}/dashboard/{config.UniqueId}/";
+            var url = $"abtesting/{Constants.Trees.AbTesting}/dashboard/{config.UniqueId}/";
             var node = CreateTreeNode(config.UniqueId, $"{UmbracoConstants.System.Root}", queryStrings, name, icon, url);
             node.HasChildren = true;
             return node;
@@ -159,7 +162,8 @@ namespace Endzone.uSplit.Backoffice
                     icon = Constants.Icons.Block + " color-red";
                     break;
             }
-            var url = $"content/{Constants.Trees.AbTesting}/experiment/{experiment.GoogleExperiment.Id}?{parentId}";
+            //var url = $"content/{Constants.Trees.AbTesting}/experiment/{experiment.GoogleExperiment.Id}?{parentId}";
+            var url = $"abtesting/{Constants.Trees.AbTesting}/experiment/{experiment.GoogleExperiment.Id}?{parentId}";
             var node = CreateTreeNode(experiment.GoogleExperiment.Id, parentId, queryStrings, name, icon, url);
             return node;
         }

@@ -6,7 +6,7 @@
 
                 <div class="umb-headline-editor-wrapper span7">
                     <h1>
-                        uSplit - A/B testing
+                        A/B testing
                     </h1>
                 </div>
 
@@ -47,14 +47,17 @@
                                     </div>
                                 </div>
                             </div>
+                            <p ng-show="accounts.length == 0">A/B testing is currently not configured for your Site Assist site.</p>
                         </div>
                     </umb-pane>
                 </umb-tab>
+                <!--
                 <umb-tab id="tabinstructions" rel="instructions" class="active">
                     <umb-pane>
                         <div class="row" ng-include="'/App_Plugins/uSplit/backoffice/abtesting/instructions.html'"></div>
                     </umb-pane>
                 </umb-tab>
+                -->
             </umb-tab-view>
         </umb-panel>
     </form>

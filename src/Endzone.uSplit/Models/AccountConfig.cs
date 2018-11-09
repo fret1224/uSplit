@@ -4,6 +4,7 @@ using System.Collections.Specialized;
 using System.Linq;
 using System.Web.Configuration;
 using Umbraco.Core;
+using Endzone.uSplit.Utility;
 
 namespace Endzone.uSplit.Models
 {
@@ -43,6 +44,15 @@ namespace Endzone.uSplit.Models
             var prefix = Constants.AppSettings.Prefix + ":";
             var keys = WebConfigurationManager.AppSettings.AllKeys;
             var names = new HashSet<string>();
+
+            if(!keys.Where(x => x.StartsWith(Constants.AppSettings.Prefix)).Any())
+            {
+                // Probably need to try the dictionary
+                DictionaryUtils uDic = new DictionaryUtils();
+                var dictItems = uDic.GetDictionaryItemsSimple();
+                keys = dictItems.Where(x => x.Key.StartsWith(Constants.AppSettings.Prefix)).Select(x => x.Key).ToArray();
+            }
+
             foreach (var key in keys)
             {
                 if (!key.StartsWith(prefix)) continue;
@@ -56,12 +66,41 @@ namespace Endzone.uSplit.Models
                     names.Add(parts[1]);
                 }
             }
+
             return names.Select(GetByName).Where(x => !string.IsNullOrEmpty(x.GoogleProfileId));
         }
         
         public static AccountConfig GetByName(string name)
         {
-            return new AccountConfig(WebConfigurationManager.AppSettings, name);
+            var keys = WebConfigurationManager.AppSettings.AllKeys;
+
+            AccountConfig res;
+
+            // Get from appSettings or the dictionary
+            if (keys.Where(x => x.StartsWith(Constants.AppSettings.Prefix)).Any())
+            {
+                // Try appSettings first
+                res = new AccountConfig(WebConfigurationManager.AppSettings, name);
+            }
+            else
+            {
+                // Try the dictionary
+                DictionaryUtils uDic = new DictionaryUtils();
+                var dictItems = uDic
+                                .GetDictionaryItemsSimple()
+                                .Where(x => x.Key.StartsWith(Constants.AppSettings.Prefix));
+                NameValueCollection nvc = dictItems
+                                            .Aggregate(new NameValueCollection(),
+                                                (seed, current) =>
+                                                {
+                                                    seed.Add(current.Key, current.Value);
+                                                    return seed;
+                                                });
+
+                res = new AccountConfig(nvc, name);
+            }
+
+            return res;
         }
 
         public static AccountConfig GetByUniqueId(string uniqueId)

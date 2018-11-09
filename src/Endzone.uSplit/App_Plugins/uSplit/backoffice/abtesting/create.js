@@ -100,7 +100,8 @@
             $scope.editExperiment = function () {
                 $scope.nav.hideDialog();
                 $location.search("");
-                $location.path("content/abtesting/experiment/" + $scope.experiment.id + encodeURI("?" + profileId));
+                //$location.path("content/abtesting/experiment/" + $scope.experiment.id + encodeURI("?" + profileId));
+                $location.path("abtesting/abtesting/experiment/" + $scope.experiment.id + encodeURI("?" + profileId));
             }
 
             $scope.create = function() {
