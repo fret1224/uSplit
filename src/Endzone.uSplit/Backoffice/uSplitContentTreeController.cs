@@ -23,7 +23,7 @@ namespace Endzone.uSplit.Backoffice
     /// </summary>
     [PluginController(Constants.PluginName)]
     //[Tree(UmbracoConstants.Applications.Content, Constants.Trees.AbTesting, "A/B testing")]
-    [Tree("splittesting", Constants.Trees.AbTesting, "A/B testing")]
+    [Tree("abtesting", Constants.Trees.AbTesting, "A/B testing")]
     public class USplitContentTreeController : uSplitTreeController
     {
         protected override TreeNode CreateRootNode(FormDataCollection queryStrings)

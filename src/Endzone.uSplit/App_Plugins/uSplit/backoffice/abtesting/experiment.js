@@ -18,7 +18,7 @@
         var urlParts = decodeURI($routeParams.id).split("?");
         var profileId = $scope.profileId = urlParts[1];
         var experimentId = $scope.experimentId = urlParts[0];
-        navigationService.syncTree({ tree: "splittesting", path: [-1, profileId, experimentId], forceReload: false, activate: true });
+        navigationService.syncTree({ tree: "abtesting", path: [-1, profileId, experimentId], forceReload: false, activate: true });
 
         $scope.tabs = [{ id: "variations", label: "Variations" }, { id: "debug", label: "Debug" }];
 

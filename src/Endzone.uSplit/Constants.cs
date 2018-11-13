@@ -21,7 +21,7 @@ namespace Endzone.uSplit
 
         public static class Trees
         {
-            public const string AbTesting = "splittesting";
+            public const string AbTesting = "abtesting";
         }
 
         public static class AppSettings

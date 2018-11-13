@@ -6,7 +6,7 @@
         
         var path = [-1];
         if ($routeParams.id) path.push($routeParams.id);
-        navigationService.syncTree({ tree: "splittesting", path: path, forceReload: false, activate: true });
+        navigationService.syncTree({ tree: "abtesting", path: path, forceReload: false, activate: true });
 
         $scope.tabs = [
             { id: "configuration", label: "Configuration" }/*,
