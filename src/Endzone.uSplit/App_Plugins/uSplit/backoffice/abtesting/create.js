@@ -101,7 +101,7 @@
                 $scope.nav.hideDialog();
                 $location.search("");
                 //$location.path("content/abtesting/experiment/" + $scope.experiment.id + encodeURI("?" + profileId));
-                $location.path("abtesting/abtesting/experiment/" + $scope.experiment.id + encodeURI("?" + profileId));
+                $location.path("splittesting/splittesting/experiment/" + $scope.experiment.id + encodeURI("?" + profileId));
             }
 
             $scope.create = function() {
@@ -117,7 +117,7 @@
 
                         var experiment = $scope.experiment = createResponse.data;
 
-                        navigationService.syncTree({ tree: "abtesting", path: [-1, experiment.id], forceReload: true, activate: false });
+                        navigationService.syncTree({ tree: "splittesting", path: [-1, experiment.id], forceReload: true, activate: false });
                     }, function (err) {
                         $scope.success = false;
                         $scope.error = err;
