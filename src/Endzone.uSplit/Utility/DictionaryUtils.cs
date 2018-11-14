@@ -15,8 +15,6 @@ namespace Endzone.uSplit.Utility
 
     class DictionaryUtils
     {
-        private readonly UmbracoHelper _umbracoHelper = new UmbracoHelper(UmbracoContext.Current);
-
         public IEnumerable<DictionaryItem> GetDictionaryItemsSimple()
         {
             //For now, we're only going to get the English items
@@ -38,7 +36,7 @@ namespace Endzone.uSplit.Utility
                 dictionary.Add(new DictionaryItem
                 {
                     Key = item.ItemKey,
-                    Value = _umbracoHelper.GetDictionaryValue(item.ItemKey)
+                    Value = item.Translations.Where(x => x.Language.CultureInfo.ToString() == culture).Select(x => x.Value).FirstOrDefault()
                 });
             }
 
